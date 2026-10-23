@@ -1,0 +1,62 @@
+# PrLogueXXL: every push builds the plugin (armv7) and the skin, runs the offline tests and keeps the release zip as a
+# run artifact. "Run workflow" with a version also makes a DRAFT GitHub release with that zip: install it on a device,
+# then publish the draft (that creates the tag; the mpc-vst-plugins catalog lists published releases).
+name: build
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version for a draft release, e.g. 0.1.0 (empty = build only)
+        type: string
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Tools (Pillow, numpy, Zig, Playwright's Chromium for the skin renderer)
+        run: |
+          python3 -m pip install --quiet pillow numpy ziglang playwright
+          python3 -m playwright install --with-deps chromium
+      - name: Build
+        run: ./build.sh
+      - name: Offline tests (x86, sanitizers)
+        run: |
+          . ./build_srcs.sh
+          mkdir -p build/ci
+          for f in $USER_SRCS; do g++ -O1 -w -std=gnu++14 $INCS $USER_DEFS -c $f -o build/ci/$(basename $f).o; done
+          for f in $TABLE_SRCS; do gcc -O1 -w $INCS -c $f -o build/ci/$(basename $f).o; done
+          gcc -O1 -g -fsanitize=address,undefined -w -std=gnu11 $INCS -Ithird_party/mpc-vst-plugins/wrapper $PLUGIN_SRCS \
+              test/render_test.c build/ci/*.o -lstdc++ -lm -o build/ci/render_test
+          ASAN_OPTIONS=detect_leaks=0 ./build/ci/render_test
+      - name: Package
+        run: |
+          V="${{ inputs.version }}"; V="${V:-0.0.0-ci.${GITHUB_RUN_NUMBER}}"
+          python3 third_party/mpc-vst-plugins/tools/release.py --so build/arm/prloguexxl.so \
+            --skin "build/package/L'Cronx - VST - PrLogueXXL" --entry build/pluginlist-entry.xml --version "$V" \
+            --about "Prologue-style 16-voice poly synth: two VCOs, multi engine (noise, VPM, user), voice modes, two timbres, arpeggiator, effects, L.F. COMP" \
+            --repo sunskiefer/PrLogueXXL --license GPL-3.0-or-later -o dist
+          python3 third_party/mpc-vst-plugins/tools/catalog_check.py dist/*.zip --catalog
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PrLogueXXL-${{ github.run_number }}
+          path: dist/*.zip
+          retention-days: 30
+      - name: Draft release
+        if: ${{ inputs.version != '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          V="${{ inputs.version }}"
+          gh release create "v$V" dist/*.zip --draft --target "$GITHUB_SHA" --title "PrLogueXXL $V" \
+            --notes "Prologue-style 16-voice poly synth for Force / MPC OS 3.x. Install: unzip, run install.sh (INSTALL.md inside)."
