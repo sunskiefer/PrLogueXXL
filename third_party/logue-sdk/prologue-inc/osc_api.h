@@ -84,8 +84,8 @@ extern "C" {
     return _osc_mcu_hash();
   }
 
-#define k_samplerate        (48000)
-#define k_samplerate_recipf (2.08333333333333e-005f)
+#define k_samplerate        (44100)   /* PrLogueXXL: native build runs at MPC's 44.1 kHz */
+#define k_samplerate_recipf (2.26757369614512e-005f)
 
   /** @} */
   

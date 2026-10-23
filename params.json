@@ -1,0 +1,833 @@
+{
+ "params": [
+  {
+   "key": "modfx_sw",
+   "name": "MOD EFFECT",
+   "options": [
+    "Off",
+    "On",
+    "Select"
+   ],
+   "default": 0
+  },
+  {
+   "key": "modfx_speed",
+   "name": "MOD SPEED",
+   "min": 0,
+   "max": 1023,
+   "default": 400,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "modfx_depth",
+   "name": "MOD DEPTH",
+   "min": 0,
+   "max": 1023,
+   "default": 500,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "dlrv_sw",
+   "name": "DELAY/REVERB",
+   "options": [
+    "Off",
+    "Delay",
+    "Reverb"
+   ],
+   "default": 0
+  },
+  {
+   "key": "dlrv_time",
+   "name": "DL/RV TIME",
+   "min": 0,
+   "max": 1023,
+   "default": 500,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "dlrv_depth",
+   "name": "DL/RV DEPTH",
+   "min": 0,
+   "max": 1023,
+   "default": 400,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "value",
+   "name": "PROGRAM/VALUE",
+   "min": 0,
+   "max": 1,
+   "default": 0.5,
+   "dynamic_display": true
+  },
+  {
+   "key": "pgm1",
+   "name": "PAGE 1",
+   "display": "string",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  },
+  {
+   "key": "pgm2",
+   "name": "PAGE 2",
+   "display": "string",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  },
+  {
+   "key": "pgm3",
+   "name": "PAGE 3",
+   "display": "string",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  },
+  {
+   "key": "pgm4",
+   "name": "PAGE 4",
+   "display": "string",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  },
+  {
+   "key": "pgm5",
+   "name": "PAGE 5",
+   "display": "string",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  },
+  {
+   "key": "pgm6",
+   "name": "PAGE 6",
+   "display": "string",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  },
+  {
+   "key": "pgm7",
+   "name": "PAGE 7",
+   "display": "string",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  },
+  {
+   "key": "pgm8",
+   "name": "PAGE 8",
+   "display": "string",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  },
+  {
+   "key": "edit",
+   "name": "EDIT MODE",
+   "display": "string",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  },
+  {
+   "key": "write",
+   "name": "WRITE",
+   "display": "string",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  },
+  {
+   "key": "exit",
+   "name": "EXIT",
+   "display": "string",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  },
+  {
+   "key": "shift",
+   "name": "SHIFT",
+   "options": [
+    "Off",
+    "On"
+   ],
+   "default": 0
+  },
+  {
+   "key": "oct_dn",
+   "name": "OCTAVE DOWN",
+   "display": "string",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  },
+  {
+   "key": "oct_up",
+   "name": "OCTAVE UP",
+   "display": "string",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  },
+  {
+   "key": "lfc_sw",
+   "name": "L.F. COMP",
+   "options": [
+    "Off",
+    "On"
+   ],
+   "default": 0
+  },
+  {
+   "key": "lfc_gain",
+   "name": "COMP GAIN",
+   "min": 0,
+   "max": 1,
+   "default": 0.3,
+   "dynamic_display": true
+  },
+  {
+   "key": "lfc_vu",
+   "name": "COMP METER",
+   "min": 0,
+   "max": 1,
+   "default": 0.708
+  },
+  {
+   "key": "oled1",
+   "name": "DISPLAY 1",
+   "display": "string",
+   "min": 0,
+   "max": 1,
+   "default": 0
+  },
+  {
+   "key": "oled2",
+   "name": "DISPLAY 2",
+   "display": "string",
+   "min": 0,
+   "max": 1,
+   "default": 0
+  },
+  {
+   "key": "bend",
+   "name": "PITCH BEND",
+   "min": -1,
+   "max": 1,
+   "default": 0,
+   "dynamic_display": true
+  },
+  {
+   "key": "modwheel",
+   "name": "MOD WHEEL",
+   "min": 0,
+   "max": 127,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "master",
+   "name": "MASTER",
+   "min": 0,
+   "max": 1,
+   "default": 0.7,
+   "dynamic_display": true
+  },
+  {
+   "key": "balance",
+   "name": "MAIN/SUB BAL",
+   "min": 0,
+   "max": 127,
+   "default": 64,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "timbre_type",
+   "name": "TIMBRE TYPE",
+   "options": [
+    "Layer",
+    "X-Fade",
+    "Split"
+   ],
+   "default": 0
+  },
+  {
+   "key": "edit_timbre",
+   "name": "PANEL",
+   "options": [
+    "Main",
+    "Main+Sub",
+    "Sub"
+   ],
+   "default": 0
+  },
+  {
+   "key": "sub_on",
+   "name": "SUB ON",
+   "options": [
+    "Off",
+    "On"
+   ],
+   "default": 0
+  },
+  {
+   "key": "portamento",
+   "name": "PORTAMENTO",
+   "min": 0,
+   "max": 128,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "voice_spread",
+   "name": "VOICE SPREAD",
+   "min": 0,
+   "max": 127,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "vm_depth",
+   "name": "VOICE MODE DEPTH",
+   "min": 0,
+   "max": 1023,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "vm_select",
+   "name": "VOICE MODE SELECT",
+   "display": "string",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  },
+  {
+   "key": "vm_type",
+   "name": "VOICE MODE",
+   "options": [
+    "Poly",
+    "Mono",
+    "Unison",
+    "Chord"
+   ],
+   "default": 0
+  },
+  {
+   "key": "arp_btn",
+   "name": "ARP ON/LATCH",
+   "display": "string",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  },
+  {
+   "key": "arp_tempo_btn",
+   "name": "ARP TEMPO",
+   "display": "string",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  },
+  {
+   "key": "arp_range_btn",
+   "name": "ARP RANGE",
+   "display": "string",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  },
+  {
+   "key": "arp_type_btn",
+   "name": "ARP TYPE",
+   "display": "string",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  },
+  {
+   "key": "arp_mode",
+   "name": "ARPEGGIATOR",
+   "options": [
+    "Off",
+    "On",
+    "Latch"
+   ],
+   "default": 0
+  },
+  {
+   "key": "arp_range",
+   "name": "ARP RANGE",
+   "options": [
+    "1 Oct",
+    "2 Oct",
+    "3 Oct",
+    "4 Oct"
+   ],
+   "default": 0
+  },
+  {
+   "key": "arp_type",
+   "name": "ARP TYPE",
+   "options": [
+    "Manual",
+    "Rise",
+    "Fall",
+    "Rise Fall",
+    "Random",
+    "Poly Random"
+   ],
+   "default": 1
+  },
+  {
+   "key": "tempo",
+   "name": "TEMPO",
+   "min": 30,
+   "max": 600,
+   "default": 120,
+   "display": "int"
+  },
+  {
+   "key": "vco1_wave",
+   "name": "VCO1 WAVE",
+   "options": [
+    "SQR",
+    "TRI",
+    "SAW"
+   ],
+   "default": 2
+  },
+  {
+   "key": "vco1_oct",
+   "name": "VCO1 OCTAVE",
+   "options": [
+    "2'",
+    "4'",
+    "8'",
+    "16'"
+   ],
+   "default": 2
+  },
+  {
+   "key": "vco1_pitch",
+   "name": "VCO1 PITCH",
+   "min": 0,
+   "max": 1023,
+   "default": 512,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "vco1_shape",
+   "name": "VCO1 SHAPE",
+   "min": 0,
+   "max": 1023,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "peg_target",
+   "name": "PITCH EG",
+   "options": [
+    "VCO2",
+    "VCO1+2",
+    "All"
+   ],
+   "default": 0
+  },
+  {
+   "key": "peg_int",
+   "name": "PITCH EG INT",
+   "min": 0,
+   "max": 1023,
+   "default": 512,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "vco2_wave",
+   "name": "VCO2 WAVE",
+   "options": [
+    "SQR",
+    "TRI",
+    "SAW"
+   ],
+   "default": 2
+  },
+  {
+   "key": "vco2_oct",
+   "name": "VCO2 OCTAVE",
+   "options": [
+    "2'",
+    "4'",
+    "8'",
+    "16'"
+   ],
+   "default": 2
+  },
+  {
+   "key": "vco2_pitch",
+   "name": "VCO2 PITCH",
+   "min": 0,
+   "max": 1023,
+   "default": 512,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "vco2_shape",
+   "name": "VCO2 SHAPE",
+   "min": 0,
+   "max": 1023,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "sync_ring",
+   "name": "SYNC/RING",
+   "options": [
+    "Ring",
+    "Off",
+    "Sync"
+   ],
+   "default": 1
+  },
+  {
+   "key": "cross_mod",
+   "name": "CROSS MOD",
+   "min": 0,
+   "max": 1023,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "multi_type",
+   "name": "MULTI ENGINE",
+   "options": [
+    "Noise",
+    "VPM",
+    "User"
+   ],
+   "default": 0
+  },
+  {
+   "key": "multi_oct",
+   "name": "MULTI OCTAVE",
+   "options": [
+    "2'",
+    "4'",
+    "8'",
+    "16'"
+   ],
+   "default": 2
+  },
+  {
+   "key": "multi_sel",
+   "name": "MULTI TYPE",
+   "min": 0,
+   "max": 15,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true,
+   "qlink_ticks": 3
+  },
+  {
+   "key": "multi_shape",
+   "name": "MULTI SHAPE",
+   "min": 0,
+   "max": 1023,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "vco1_level",
+   "name": "VCO1 LEVEL",
+   "min": 0,
+   "max": 1023,
+   "default": 1023,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "vco2_level",
+   "name": "VCO2 LEVEL",
+   "min": 0,
+   "max": 1023,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "multi_level",
+   "name": "MULTI LEVEL",
+   "min": 0,
+   "max": 1023,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "me_disp",
+   "name": "MULTI DISPLAY",
+   "options": [
+    "NOISE HIGH",
+    "NOISE LOW",
+    "NOISE PEAK",
+    "NOISE DECIM",
+    "VPM SIN1",
+    "VPM SIN2",
+    "VPM SIN3",
+    "VPM SIN4",
+    "VPM SAW1",
+    "VPM SAW2",
+    "VPM SQU1",
+    "VPM SQU2",
+    "VPM FAT1",
+    "VPM FAT2",
+    "VPM AIR1",
+    "VPM AIR2",
+    "VPM DECAY1",
+    "VPM DECAY2",
+    "VPM CREEP",
+    "VPM THROAT",
+    "USR WAVES",
+    "USR USER2",
+    "USR USER3",
+    "USR USER4",
+    "USR USER5",
+    "USR USER6",
+    "USR USER7",
+    "USR USER8",
+    "USR USER9",
+    "USR USER10",
+    "USR USER11",
+    "USR USER12",
+    "USR USER13",
+    "USR USER14",
+    "USR USER15",
+    "USR USER16"
+   ],
+   "default": 0
+  },
+  {
+   "key": "cutoff",
+   "name": "CUTOFF",
+   "min": 0,
+   "max": 1023,
+   "default": 1023,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "resonance",
+   "name": "RESONANCE",
+   "min": 0,
+   "max": 1023,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "cutoff_eg",
+   "name": "CUTOFF EG INT",
+   "min": 0,
+   "max": 1023,
+   "default": 512,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "drive",
+   "name": "DRIVE",
+   "options": [
+    "0%",
+    "50%",
+    "100%"
+   ],
+   "default": 0
+  },
+  {
+   "key": "low_cut",
+   "name": "LOW CUT",
+   "options": [
+    "Off",
+    "On"
+   ],
+   "default": 0
+  },
+  {
+   "key": "keytrack",
+   "name": "KEYTRACK",
+   "options": [
+    "0%",
+    "50%",
+    "100%"
+   ],
+   "default": 0
+  },
+  {
+   "key": "amp_a",
+   "name": "AMP ATTACK",
+   "min": 0,
+   "max": 1023,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "amp_d",
+   "name": "AMP DECAY",
+   "min": 0,
+   "max": 1023,
+   "default": 512,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "amp_s",
+   "name": "AMP SUSTAIN",
+   "min": 0,
+   "max": 1023,
+   "default": 1023,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "amp_r",
+   "name": "AMP RELEASE",
+   "min": 0,
+   "max": 1023,
+   "default": 300,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "eg_a",
+   "name": "EG ATTACK",
+   "min": 0,
+   "max": 1023,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "eg_d",
+   "name": "EG DECAY",
+   "min": 0,
+   "max": 1023,
+   "default": 512,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "eg_s",
+   "name": "EG SUSTAIN",
+   "min": 0,
+   "max": 1023,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "eg_r",
+   "name": "EG RELEASE",
+   "min": 0,
+   "max": 1023,
+   "default": 300,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "lfo_wave",
+   "name": "LFO WAVE",
+   "options": [
+    "SQR",
+    "TRI",
+    "SAW"
+   ],
+   "default": 1
+  },
+  {
+   "key": "lfo_mode",
+   "name": "LFO MODE",
+   "options": [
+    "BPM",
+    "Slow",
+    "Fast"
+   ],
+   "default": 1
+  },
+  {
+   "key": "lfo_rate",
+   "name": "LFO RATE",
+   "min": 0,
+   "max": 1023,
+   "default": 512,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "lfo_int",
+   "name": "LFO INT",
+   "min": -511,
+   "max": 511,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "lfo_target",
+   "name": "LFO TARGET",
+   "options": [
+    "Cutoff",
+    "Shape",
+    "Pitch"
+   ],
+   "default": 2
+  },
+  {
+   "key": "program",
+   "name": "PROGRAM",
+   "min": 0,
+   "max": 499,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true,
+   "nudge_pct": 10
+  }
+ ]
+}
