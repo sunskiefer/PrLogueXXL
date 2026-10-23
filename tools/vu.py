@@ -2,7 +2,8 @@
 
 Collage from the prologue photo: the meter's own glass, bezel and needle cover are cut from the photo and blended
 over a redrawn (sharp, larger) scale, so it reads at plugin size. One frame per needle position; the engine sets
-the meter parameter (0..1 = needle position, a VU's linear-amplitude scale: +3 VU at 1, 0 VU at 10^(-3/20)).
+the meter parameter (0..1 = needle position on a VU scale: +3 VU at 1, 0 VU at 10^(-3/20)). Per KORG the meter shows how much the
+signal is being compressed: it rests near 0 VU and swings left by the gain reduction.
 """
 import math, sys
 import numpy as np
