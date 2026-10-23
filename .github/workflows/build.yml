@@ -41,7 +41,7 @@ jobs:
           ASAN_OPTIONS=detect_leaks=0 ./build/ci/render_test
       - name: Package
         run: |
-          V="${{ inputs.version }}"; V="${V:-0.0.0-ci.${GITHUB_RUN_NUMBER}}"
+          V="${{ inputs.version }}"; V="${V:-0.0.${GITHUB_RUN_NUMBER}}"   # catalog versions are X.Y.Z; CI-only builds are 0.0.<run>
           python3 third_party/mpc-vst-plugins/tools/release.py --so build/arm/prloguexxl.so \
             --skin "build/package/L'Cronx - VST - PrLogueXXL" --entry build/pluginlist-entry.xml --version "$V" \
             --about "Prologue-style 16-voice poly synth: two VCOs, multi engine (noise, VPM, user), voice modes, two timbres, arpeggiator, effects, L.F. COMP" \
