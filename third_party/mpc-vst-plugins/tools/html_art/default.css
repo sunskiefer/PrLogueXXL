@@ -1,0 +1,167 @@
+/* Default look for the browser-rendered skin artwork (tools/html_art.py). A port restyles it with its own
+ * stylesheet (layout top-level `art_css=skin.css`), loaded after this one: override the variables, any class
+ * below, or add @font-face rules. Geometry (where each thing is, how big) comes from the layout and must not
+ * change, since MPC places its live controls on top of these images; colours, fonts, shapes inside a widget's
+ * box, gradients and shadows are all yours.
+ *
+ * Variables come from the layout's theme_* lines (theme_accent=c1552f -> --accent), so a theme written for the
+ * Force Shadow renderer carries over. Colours passed per drawing (a segment's on/off fill, a button's color=)
+ * arrive as --fill / --ink / --border on that element. */
+
+@font-face { font-family: "Titillium Web"; font-weight: 400; src: url("fonts/TitilliumWeb-Regular.ttf"); }
+@font-face { font-family: "Titillium Web"; font-weight: 600; src: url("fonts/TitilliumWeb-SemiBold.ttf"); }
+@font-face { font-family: "Titillium Web"; font-weight: 700; src: url("fonts/TitilliumWeb-Bold.ttf"); }
+
+:root {
+  --font: "Titillium Web", "DejaVu Sans", sans-serif;   /* MPC's own live-text font, so baked and live text match */
+  --title-font: var(--font);
+  --title-size: 20px;
+  --label-size: 15px;
+  --seg-size: 14px;
+  --button-size: 15px;
+  --radius: 6px;
+  --sheen: 0.10;          /* white highlight over buttons, segments and knob faces (0 = flat) */
+  --shadow: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.55));
+}
+
+text { font-family: var(--font); font-weight: 600; }
+
+/* frames */
+.frame-border { fill: none; stroke: var(--line); stroke-width: 1.5; }
+.frame-rule { stroke: var(--line); stroke-width: 1; }
+.frame-title { font-family: var(--title-font); font-size: var(--title-size); font-weight: 700; fill: var(--accent-hi);
+               letter-spacing: 0.06em; }
+.td3 .frame-border { fill: var(--box); stroke: var(--line); stroke-width: 2; }
+.td3 .frame-title { fill: var(--accent); }
+
+/* free text (enum group labels) */
+.text { font-size: var(--label-size); letter-spacing: 0.04em; }
+
+/* knobs: 270 degrees of travel, value arc from the start to the pointer */
+.knob-track { fill: none; stroke: var(--knob-ring); stroke-linecap: round; }
+.knob-arc { fill: none; stroke: var(--knob-dot); stroke-linecap: round; }
+.knob-face { fill: var(--knob-face); filter: var(--shadow); }
+.knob-sheen { fill: url(#sheen-radial); }
+.knob-pointer { stroke: var(--knob-dot); stroke-linecap: round; }
+
+/* toggles */
+.pill-track { fill: #050403; stroke: var(--line); stroke-width: 1.5; }
+.pill-thumb { fill: #4c473d; filter: var(--shadow); }
+.on .pill-thumb { fill: var(--accent-hi); }
+
+/* trigger buttons */
+.button-bg { fill: var(--fill); filter: var(--shadow); rx: var(--radius); }
+.button-sheen { fill: url(#sheen-linear); rx: var(--radius); }
+.button-tx { font-size: var(--button-size); fill: var(--btn-text-plain); letter-spacing: 0.08em; }
+.td3 .button-tx { fill: var(--btn-text); }
+
+/* option segments and popup options */
+.seg-bg { fill: var(--fill); }
+.seg-sheen { fill: url(#sheen-linear); }
+.seg-tx { font-size: var(--seg-size); fill: var(--ink); letter-spacing: 0.05em; }
+
+/* text boxes (readout, stepper, menu, popup field) */
+.box-label { font-size: var(--label-size); fill: var(--ink-dim); letter-spacing: 0.08em; }
+.box { fill: var(--lcd); stroke: var(--line); stroke-width: 1; }
+.arrow-bg { fill: var(--line); }
+.arrow { fill: var(--accent-hi); }
+
+/* dot-matrix LCD (style=dotmatrix readouts/steppers) */
+.dot-bezel { fill: var(--display-bezel); }
+.dot-cell { fill: var(--display-cell); }
+.dot-arrow { fill: var(--display-bg); }
+
+/* list tiles and popup panels */
+.tile { fill: var(--fill); }
+.tile-border { fill: none; stroke: var(--border); }
+.tile-rule { fill: var(--line); }
+
+/* sliders */
+.slider-well { fill: #050403; }
+.slider-fill { fill: var(--knob-dot); }
+.slider-thumb { fill: var(--knob-face); stroke: var(--knob-ring); stroke-width: 2; filter: var(--shadow); }
+
+/* control looks (layout look=, img=, strip=; tools/skin_assets.py). Built-in looks draw with these classes, so a
+ * stylesheet can recolour them; image looks only take .look-lit (the "on" state of an image with no img_on). */
+.look-lit { filter: brightness(1.35) saturate(1.1); }
+/* knob look=moog */
+.look-skirt { fill: #0d0d0d; }
+.look-knurl { fill: none; stroke: #343434; }
+.look-body { fill: #171717; stroke: #050505; stroke-width: 1.5; filter: var(--shadow); }
+.look-cap { fill: url(#metal-radial); stroke: #2a2a2a; stroke-width: 1; }
+.look-line { stroke: #f4f4f2; stroke-linecap: round; fill: none; }
+/* knob look=chicken */
+.look-base { fill: url(#metal-linear); stroke: #2b2b2b; stroke-width: 1.5; }
+.look-head { fill: #121212; stroke: #000; stroke-width: 0.02; filter: var(--shadow); }
+/* knob look=metal */
+.look-metal { fill: url(#metal-linear); stroke: #3b3b3a; stroke-width: 1.5; filter: var(--shadow); }
+.look-metal-top { fill: url(#metal-radial); }
+.look-notch { stroke: #1e1e1e; stroke-linecap: round; }
+/* knob look=prophet: ribbed black skirt, silver ring, brushed black top, white pointer */
+.look-pshadow { fill: rgba(0, 0, 0, 0.55); filter: blur(1.6px); }
+.look-pskirt { fill: #0b0b0c; }
+.look-prib { fill: none; stroke: #4a4b4f; }
+.look-pring { fill: url(#metal-linear); stroke: #8a8c90; stroke-width: 0.6; }
+.look-pbevel { fill: #55575b; }
+.look-ptop { fill: #1a1b1d; stroke: #08090a; stroke-width: 0.8; }
+.look-pbrush line { stroke: #34363a; stroke-width: 0.5; opacity: 0.8; }
+.look-pline { stroke: #f7f7f5; stroke-linecap: round; fill: none; }
+.look-psheen { opacity: 0.18; }
+/* knob look=hardware: glossy black dome, scale ticks, specular highlight, contact shadow */
+.look-hticks line { stroke: var(--tick, #14110a); stroke-width: 1.6; stroke-linecap: round; opacity: 0.9; }
+.look-hshadow { fill: rgba(0, 0, 0, 0.6); filter: blur(2.4px); }
+.look-hskirt { fill: #08080a; }
+.look-hrib { fill: none; stroke: #3b3c40; }
+.look-hrim { fill: url(#rim-linear); }
+.look-hdome { fill: url(#dome-radial); }
+.look-hpointer { fill: #f4f4f1; stroke: #d0d0cc; stroke-width: 0.4; stroke-linejoin: round; }
+.look-hspec { fill: #fff; opacity: 0.5; filter: blur(1.1px); }
+.look-hglint { fill: #fff; opacity: 0.16; filter: blur(1px); }
+/* knob look=chrome */
+.look-crim { fill: url(#rim-linear); stroke: #55585d; stroke-width: 0.8; }
+.look-cdome { fill: url(#chrome-linear); }
+.look-cline { stroke: #15161a; stroke-linecap: round; }
+/* knob look=bakelite */
+.look-bskirt { fill: #1c0d05; }
+.look-brib { fill: none; stroke: #5a3420; }
+.look-btop { fill: url(#bake-radial); stroke: #0d0502; stroke-width: 0.8; }
+.look-bline { stroke: #f1e6c8; stroke-linecap: round; }
+/* knob look=davies */
+.look-dskirt { fill: #121214; stroke: #000; stroke-width: 0.8; }
+.look-dstep { fill: #4b4d52; }
+.look-dcap { fill: url(#dome-radial); }
+.look-dline { stroke: #f2f2ee; stroke-linecap: butt; }
+/* knob look=rubber */
+.look-rbody { fill: #26272a; stroke: #0c0c0d; stroke-width: 1; }
+.look-rgrip { fill: none; stroke: #3a3b3f; }
+.look-rtop { fill: #2e2f33; stroke: #1a1b1d; stroke-width: 1; }
+.look-rdot { fill: var(--knob-dot); }
+/* knob look=ledring */
+.look-led-on { fill: var(--accent-hi); filter: drop-shadow(0 0 2.5px var(--accent-hi)); }
+.look-led-off { fill: #3a3a38; }
+.look-lbody { fill: #1d1e20; stroke: #070708; stroke-width: 1; }
+.look-lline { stroke: #f4f4f1; stroke-linecap: round; }
+/* knob look=taper: seen from above: shaded stem base, bevel ring, charcoal top, pale inset, notch; per-size colours via [data-r] */
+.look-wside { fill: #34343a; }
+.look-wshade { fill: url(#wside-radial); }
+.look-wtop { fill: #2a2a2e; stroke: #141416; stroke-width: 0.8; }
+.look-wbevel { fill: none; stroke: #5a5a60; stroke-width: 1.4; opacity: 0.8; }
+.look-winset { fill: #86868b; stroke: #444448; stroke-width: 0.8; }
+.look-wnotch { stroke: #1f1f23; stroke-linecap: round; }
+/* knob look=cap: the theme's knob colours */
+.look-cap-ring { fill: var(--knob-ring); filter: var(--shadow); }
+.look-cap-top { fill: var(--knob-dot); }
+/* slider look=fader */
+.look-slot { fill: #050403; stroke: var(--line); stroke-width: 1; }
+.look-tick { stroke: var(--ink-faint); stroke-width: 1; }
+.look-fader { fill: #3b3b3a; stroke: #0f0f0f; stroke-width: 1; filter: var(--shadow); }
+.look-ridge { stroke: #1d1d1c; stroke-width: 1.5; }
+/* toggle look=led */
+.look-led-bezel { fill: #151515; stroke: #3d3d3d; stroke-width: 1; }
+.look-led { fill: #3a120c; }
+.on .look-led { fill: var(--accent-hi); filter: drop-shadow(0 0 5px var(--accent-hi)); }
+.look-led-glint { fill: #fff; opacity: 0.25; }
+/* toggle look=switch: a bat lever, up for on */
+.look-nut { fill: url(#metal-linear); stroke: #2b2b2b; stroke-width: 1; }
+.look-bat { fill: url(#metal-linear); stroke: #3a3a3a; stroke-width: 0.8; }
+.look-bat-tip { fill: url(#metal-radial); stroke: #3a3a3a; stroke-width: 0.8; filter: var(--shadow); }
