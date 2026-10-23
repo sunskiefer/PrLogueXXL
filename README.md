@@ -33,6 +33,10 @@ choices KORG does not document are marked as PrLogueXXL's own).
 
 Needs python3 with Pillow and numpy, Playwright's Chromium (the skin renderer) and Zig (`pip install ziglang`).
 
+## Licence
+
+PrLogueXXL is GPL-3.0-or-later (`LICENSE`); third-party parts keep their own licences (below).
+
 ## Credits and licences
 
 KORG logue SDK headers, the "waves" oscillator and its wavetables (BSD-3-Clause, `third_party/logue-sdk`).
