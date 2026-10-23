@@ -54,7 +54,10 @@ class Page:
 
     # ---- knobs: the photo's cap, the pointer turning through 300 degrees
     def knob(self, key, x, y, d, label, big=False, pointer=True, lsz=19):
-        s = min(128, int(d * 1.25) + 2)          # the frame holds the cap and its shadow; MPC's strip is 2r+10 square
+        # The frame holds the cap and its shadow; MPC's strip is 2r+10 square, 128 frames. 128 px frames put the
+        # strip exactly on MPC's 16384 px image limit, where it drifts up and down the screen as it turns (device,
+        # 2026-10-23: Cutoff and Program/Value; docs/NOTES.md "Knob filmstrips over 16384 px"). r <= 58 is safe.
+        s = min(126, int(d * 1.25) + 2)
         d = min(d, int((s - 2) / 1.25))
         r = (s - 10) // 2
         name = 'knob_%d%s%s.png' % (d, 'b' if big else '', '' if pointer else 'e')
