@@ -1,15 +1,15 @@
 # PrLogueXXL: every push builds the plugin (armv7) and the skin, runs the offline tests and keeps the release zip as a
-# run artifact. "Run workflow" with a version also makes a DRAFT GitHub release with that zip: install it on a device,
-# then publish the draft (that creates the tag; the mpc-vst-plugins catalog lists published releases).
+# run artifact. "Run workflow" with a version also publishes the GitHub release with that zip: pushing a v* tag does the same.
 name: build
 
 on:
   push:
     branches: [main]
+    tags: ["v*"]
   workflow_dispatch:
     inputs:
       version:
-        description: Version for a draft release, e.g. 0.1.0 (empty = build only)
+        description: Version to publish, e.g. 0.1.0 (empty = build only)
         type: string
         default: ''
 
@@ -41,7 +41,7 @@ jobs:
           ASAN_OPTIONS=detect_leaks=0 ./build/ci/render_test
       - name: Package
         run: |
-          V="${{ inputs.version }}"; V="${V:-0.0.${GITHUB_RUN_NUMBER}}"   # catalog versions are X.Y.Z; CI-only builds are 0.0.<run>
+          V="${{ inputs.version }}"; [ "$GITHUB_REF_TYPE" = tag ] && V="${GITHUB_REF_NAME#v}"; V="${V:-0.0.${GITHUB_RUN_NUMBER}}"; echo "VERSION=$V" >> "$GITHUB_ENV"   # catalog versions are X.Y.Z; CI-only builds are 0.0.<run>
           python3 third_party/mpc-vst-plugins/tools/release.py --so build/arm/prloguexxl.so \
             --skin "build/package/L'Cronx - VST - PrLogueXXL" --entry build/pluginlist-entry.xml --version "$V" \
             --about "Prologue-style 16-voice poly synth: two VCOs, multi engine (noise, VPM, user), voice modes, two timbres, arpeggiator, effects, L.F. COMP" \
@@ -60,11 +60,15 @@ jobs:
           name: PrLogueXXL-${{ github.run_number }}
           path: dist/*.zip
           retention-days: 30
-      - name: Draft release
-        if: ${{ inputs.version != '' }}
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          V="${{ inputs.version }}"
-          gh release create "v$V" dist/*.zip --draft --target "$GITHUB_SHA" --title "PrLogueXXL $V" \
-            --notes "Prologue-style 16-voice poly synth for Force / MPC OS 3.x. Install: unzip, run install.sh (INSTALL.md inside)."
+      - name: Publish release (tag push v*, or Run workflow with a version)
+        if: ${{ github.ref_type == 'tag' || inputs.version != '' }}
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ env.VERSION }}
+          target_commitish: ${{ github.sha }}
+          name: PrLogueXXL ${{ env.VERSION }}
+          make_latest: true
+          prerelease: false
+          draft: false
+          files: dist/*-mpc-armv7.zip
+          body: "PrLogueXXL for Force / MPC OS by L'Cronx. Install: unzip, run install.sh (INSTALL.md inside), or use the MPC plugin installer."
