@@ -236,7 +236,8 @@ SEG = {  # 7-segment patterns, segments a b c d e f g
     'i': 'c', 'j': 'bcd', 'l': 'def', 'n': 'ceg', 'o': 'cdeg', 'p': 'abefg', 'q': 'abcfg', 'r': 'eg', 's': 'acdfg',
     't': 'defg', 'u': 'cde', 'y': 'bcdfg', 'A': 'abcefg', 'E': 'adefg', 'H': 'bcefg', 'C': 'adef', 'U': 'bcdef',
     '0': 'abcdef', '1': 'bc', '2': 'abdeg', '3': 'abcdg', '4': 'bcfg', '5': 'acdfg', '6': 'acdefg', '7': 'abc',
-    '8': 'abcdefg', '9': 'abcdfg', '-': 'g', ' ': ''}
+    '8': 'abcdefg', '9': 'abcdfg', '-': 'g', ' ': '', 'I': 'ef', 'G': 'acdef', 'K': 'bcefg', 'L': 'def',
+    'S': 'acdfg', 'P': 'abefg', 'O': 'abcdef'}
 
 
 def led_display(page, x, y, w, h, s):

@@ -1,0 +1,22 @@
+{
+  "name": "PrLogueXXL",
+  "vendor": "L'Cronx",
+  "uid": "LcPl",
+  "version": 1000,
+  "so": "prloguexxl.so",
+  "params": "params.json",
+  "layout": "layout.conf",
+  "art": "html",
+  "title_font": "art/fonts/TitilliumWeb-SemiBold.ttf",
+  "programs": {"param": "program"},
+  "cc": false,
+  "nrpn": false,
+  "defines": {
+    "HAS_DISPLAY_REV": 1,
+    "DISPLAY_REV_NO_UPDATE": 1,
+    "HAS_HOST_TIME": 1,
+    "SAMPLE_ACCURATE": 1,
+    "PARAM_TEXT_MAX": 48,
+    "MODULE_DIR": "\"/sdcard/PrLogueXXL\""
+  }
+}
