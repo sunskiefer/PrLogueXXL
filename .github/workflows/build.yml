@@ -47,6 +47,14 @@ jobs:
             --about "Prologue-style 16-voice poly synth: two VCOs, multi engine (noise, VPM, user), voice modes, two timbres, arpeggiator, effects, L.F. COMP" \
             --repo sunskiefer/PrLogueXXL --license GPL-3.0-or-later -o dist
           python3 third_party/mpc-vst-plugins/tools/catalog_check.py dist/*.zip --catalog
+      - name: Installer syntax (sh -n) and the L'Cronx apostrophe
+        run: |
+          set -e
+          for z in dist/*.zip; do
+            d=$(mktemp -d); unzip -q "$z" -d "$d"
+            n=$(find "$d" \( -name install.sh -o -name uninstall.sh \) | wc -l); [ "$n" -ge 2 ] || { echo "installer missing in $z"; exit 1; }
+            find "$d" \( -name install.sh -o -name uninstall.sh \) -print0 | while IFS= read -r -d '' f; do sh -n "$f" && echo "sh -n OK: $f"; done
+          done
       - uses: actions/upload-artifact@v4
         with:
           name: PrLogueXXL-${{ github.run_number }}
