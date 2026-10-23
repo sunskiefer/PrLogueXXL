@@ -56,3 +56,17 @@ OFF/ON/LATCH, RANGE, TYPE (P12: MANUAL, RISE, FALL, RISE FALL, RANDOM, POLY RAND
 Envelope times in seconds, velocity curve tables, Duo/Sub level curves, VPM ratio tables per type, filter slope
 (a dealer page quotes 2-pole 12 dB/oct; not a KORG document), noise SHIFT+SHAPE, L.F. COMP curve and what its VU
 shows, VCO SHAPE behaviour for SAW/TRI, XFADE range, ARP RANGE byte → octaves.
+
+## Values adopted for the engine (user-supplied search results, 2026-10-23; labelled, not KORG documents)
+- EG / AMP EG: attack max about 3–4 s (agrees with Sound On Sound's ~3 s); decay and release max about 17–18 s each.
+  Stages heard as roughly linear (SOS). 0–1023 per knob (KORG).
+- CHORD voicings, root position from the played key (the chord names define these intervals):
+  5th R-5 · sus2 R-2-5 · m R-b3-5 · Maj R-3-5 · sus4 R-4-5 · m7 R-b3-5-b7 · 7 R-3-5-b7 · 7sus4 R-4-5-b7 ·
+  Maj7 R-3-5-7 · aug R-3-#5 · dim R-b3-b5 · m7b5 R-b3-b5-b7 · mMaj7 R-b3-5-7 · Maj7b5 R-3-b5-7.
+- POLY→DUO: DUO stacks 2 voices per note (polyphony halves); turning further raises the 2nd voice's level and detune.
+- MONO Sub: first half of DEPTH fades in the −1 octave voices, second half adds the −2 octave voice; full = both at
+  full level (matches KORG: voices 2–3 one octave down, then voice 4 two octaves down).
+- L.F. COMP: GAIN lowers the threshold and raises make-up gain; attack, release and ratio are fixed in the circuit and
+  not published; it sits last, so MASTER level drives it. The VU shows compression (KORG manual).
+- Not adopted: the VPM ratio table from the same search (it lists types the prologue does not have, "Decay 3 & 4",
+  and contradicts the manual's ratio list); VPM ratio stays per the manual's 1:4, 1:2, 1:1, 2:1… range.
