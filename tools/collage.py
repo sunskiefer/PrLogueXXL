@@ -8,6 +8,8 @@ FONT = __import__('os').path.join(__import__('os').path.dirname(__file__), '..',
 FONTB = __import__('os').path.join(__import__('os').path.dirname(__file__), '..', 'art', 'fonts', 'BarlowSemiCondensed-Bold.ttf')
 W, H = 1280, 628
 im = Image.open(SRC).convert('RGB')
+import vu
+VU_X, VU_Y, VU_D = 1128, 196, 220   # L.F. COMP meter centre and size on page 1 (layout.conf meter uses the same)
 
 
 def crop(cx, cy, w, h):
@@ -287,28 +289,32 @@ def oled(page, x, y, w, h, title, value):
 
 # ---------------------------------------------------------------- pages
 def page1():
+    """perform page: effects, the OLED, PROGRAM/VALUE, program/edit buttons and the L.F. COMP with its live VU"""
     p = panel()
-    section(p, 50, 380, 16, 'Mod Effect')
-    switch(p, 70, 52, 3, 0, ['Select', 'On', 'Off'])
-    knob(p, 220, 92, 66, .45, 'Speed'); knob(p, 330, 92, 66, .6, 'Depth')
-    section(p, 50, 380, 168, 'Delay / Reverb')
-    switch(p, 70, 202, 3, 1, ['Reverb', 'Delay', 'Off'])
-    knob(p, 220, 238, 66, .35, 'Time'); knob(p, 330, 238, 66, .5, 'Depth')
-    oled(p, 410, 24, 420, 250, 'Cutoff', '614')
-    knob(p, 908, 120, 100, .5, 'Program /\nValue', big=True, pointer=False)
-    vline(p, 990, 20, 330)
-    section(p, 1006, 1240, 16, 'L.F. Comp.')
-    place_vu(p, 1092, 128, 150)
-    knob(p, 1190, 250, 60, .4, 'Gain')
-    switch(p, 1030, 230, 2, 0, ['On', 'Off'])
-    text(p, 330, 318, 'Program Sort / Edit Page', 18)
-    for i in range(8): place_button(p, 78 + i * 72 + 36, 352, i == 0, 64)
-    text(p, 785, 318, 'Edit', 18)
+    section(p, 40, 380, 16, 'Mod Effect')
+    switch(p, 62, 74, 3, 0, ['Select', 'On', 'Off'])
+    knob(p, 220, 128, 84, .45, 'Speed'); knob(p, 326, 128, 84, .6, 'Depth')
+    section(p, 40, 380, 316, 'Delay / Reverb')
+    switch(p, 62, 374, 3, 1, ['Reverb', 'Delay', 'Off'])
+    knob(p, 220, 428, 84, .35, 'Time'); knob(p, 326, 428, 84, .5, 'Depth')
+    vline(p, 396, 20, 600)
+    oled(p, 414, 24, 400, 290, 'Cutoff', '614')
+    knob(p, 902, 150, 130, .5, 'Program /\nValue', big=True, pointer=False, lsz=21)
+    text(p, 700, 350, 'Program Sort / Edit Page', 20)
+    for i in range(8):
+        place_button(p, 448 + i * 72, 400, i == 0, 64); text(p, 448 + i * 72, 420, str(i + 1), 18)
+    text(p, 590, 494, 'Edit', 20)
     for i, n in enumerate(['Edit Mode', 'Write', 'Exit', 'Shift']):
-        place_button(p, 680 + i * 72 + 32, 352, n == 'Shift', 64); text(p, 680 + i * 72 + 32, 370, n, 15)
-    text(p, 1110, 318, 'Octave', 18)
-    place_button(p, 1076, 352, False, 64); place_button(p, 1146, 352, True, 64)
-    keyboard(p, 400)
+        place_button(p, 464 + i * 84, 540, n == 'Shift', 64); text(p, 464 + i * 84, 560, n, 17)
+    text(p, 902, 494, 'Octave', 20)
+    place_button(p, 866, 540, False, 64); place_button(p, 938, 540, True, 64)
+    text(p, 866, 560, 'Down', 17); text(p, 938, 560, 'Up', 17)
+    vline(p, 990, 20, 600)
+    section(p, 1006, 1250, 16, 'L.F. Comp.')
+    f = vu.frame(VU_D, 0.6)                     # the meter at rest; on the device the live filmstrip sits here
+    p.alpha_composite(f, (VU_X - VU_D // 2, VU_Y - VU_D // 2))
+    switch(p, 1030, 400, 2, 0, ['On', 'Off'])
+    knob(p, 1172, 440, 92, .4, 'Gain')
     return p
 
 
