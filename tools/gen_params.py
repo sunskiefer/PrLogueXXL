@@ -38,7 +38,10 @@ def opt(key, name, options, default=0, **kw):
 
 
 def btn(key, name):
-    return {"key": key, "name": name, "display": "string", "min": 0, "max": 1, "default": 0, "momentary": True}
+    # hold_ms: MPC's button is a Toggle Switch fired on touch-down; reporting the param back to 0 while the finger is
+    # still down let a held or wobbling touch re-fire it (VOICE MODE SELECT ran through the modes). The wrapper keeps
+    # it at 1 for 200 ms first; panel.c debounces presses too (button_press).
+    return {"key": key, "name": name, "display": "string", "min": 0, "max": 1, "default": 0, "momentary": True, "hold_ms": 200}
 
 
 def text(key, name):

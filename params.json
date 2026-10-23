@@ -71,7 +71,8 @@
    "min": 0,
    "max": 1,
    "default": 0,
-   "momentary": true
+   "momentary": true,
+   "hold_ms": 200
   },
   {
    "key": "pgm2",
@@ -80,7 +81,8 @@
    "min": 0,
    "max": 1,
    "default": 0,
-   "momentary": true
+   "momentary": true,
+   "hold_ms": 200
   },
   {
    "key": "pgm3",
@@ -89,7 +91,8 @@
    "min": 0,
    "max": 1,
    "default": 0,
-   "momentary": true
+   "momentary": true,
+   "hold_ms": 200
   },
   {
    "key": "pgm4",
@@ -98,7 +101,8 @@
    "min": 0,
    "max": 1,
    "default": 0,
-   "momentary": true
+   "momentary": true,
+   "hold_ms": 200
   },
   {
    "key": "pgm5",
@@ -107,7 +111,8 @@
    "min": 0,
    "max": 1,
    "default": 0,
-   "momentary": true
+   "momentary": true,
+   "hold_ms": 200
   },
   {
    "key": "pgm6",
@@ -116,7 +121,8 @@
    "min": 0,
    "max": 1,
    "default": 0,
-   "momentary": true
+   "momentary": true,
+   "hold_ms": 200
   },
   {
    "key": "pgm7",
@@ -125,7 +131,8 @@
    "min": 0,
    "max": 1,
    "default": 0,
-   "momentary": true
+   "momentary": true,
+   "hold_ms": 200
   },
   {
    "key": "pgm8",
@@ -134,7 +141,8 @@
    "min": 0,
    "max": 1,
    "default": 0,
-   "momentary": true
+   "momentary": true,
+   "hold_ms": 200
   },
   {
    "key": "edit",
@@ -143,7 +151,8 @@
    "min": 0,
    "max": 1,
    "default": 0,
-   "momentary": true
+   "momentary": true,
+   "hold_ms": 200
   },
   {
    "key": "write",
@@ -152,7 +161,8 @@
    "min": 0,
    "max": 1,
    "default": 0,
-   "momentary": true
+   "momentary": true,
+   "hold_ms": 200
   },
   {
    "key": "exit",
@@ -161,7 +171,8 @@
    "min": 0,
    "max": 1,
    "default": 0,
-   "momentary": true
+   "momentary": true,
+   "hold_ms": 200
   },
   {
    "key": "shift",
@@ -179,7 +190,8 @@
    "min": 0,
    "max": 1,
    "default": 0,
-   "momentary": true
+   "momentary": true,
+   "hold_ms": 200
   },
   {
    "key": "oct_up",
@@ -188,7 +200,8 @@
    "min": 0,
    "max": 1,
    "default": 0,
-   "momentary": true
+   "momentary": true,
+   "hold_ms": 200
   },
   {
    "key": "lfc_sw",
@@ -326,7 +339,8 @@
    "min": 0,
    "max": 1,
    "default": 0,
-   "momentary": true
+   "momentary": true,
+   "hold_ms": 200
   },
   {
    "key": "vm_type",
@@ -346,7 +360,8 @@
    "min": 0,
    "max": 1,
    "default": 0,
-   "momentary": true
+   "momentary": true,
+   "hold_ms": 200
   },
   {
    "key": "arp_tempo_btn",
@@ -355,7 +370,8 @@
    "min": 0,
    "max": 1,
    "default": 0,
-   "momentary": true
+   "momentary": true,
+   "hold_ms": 200
   },
   {
    "key": "arp_range_btn",
@@ -364,7 +380,8 @@
    "min": 0,
    "max": 1,
    "default": 0,
-   "momentary": true
+   "momentary": true,
+   "hold_ms": 200
   },
   {
    "key": "arp_type_btn",
@@ -373,7 +390,8 @@
    "min": 0,
    "max": 1,
    "default": 0,
-   "momentary": true
+   "momentary": true,
+   "hold_ms": 200
   },
   {
    "key": "arp_mode",

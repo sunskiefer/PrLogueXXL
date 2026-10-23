@@ -50,6 +50,40 @@ int main(int argc, char **argv)
         if (outdir) { char p[512]; snprintf(p, sizeof p, "%s/prog%02d.wav", outdir, prog); wav(p, buf, LEN); }
     }
     printf("cpu: %.2f s for %.0f s of audio (%.1f%% of real time, x86, 4-note chords)\n", cpu, 22 * 4.0, cpu / (22 * 4.0) * 100);
+    /* Buttons as MPC drives them (Toggle Switch on touch-down, wrapper hold_ms 200 then a 0 echo, the "_on" poll
+     * re-lighting a lit button): a tap on a lit button arrives as 0 and must still count; the same touch re-firing
+     * within the hold must not. */
+    {
+        char on[8], v[48];
+        int step, bad = 0;
+        const char *want_arp[] = {"1", "2", "0", "1"};   /* arp_mode: Off 0, On 1, Latch 2 */
+        const char *want_vm[] = {"1", "2", "3", "0"};   /* vm_type: Poly 0, Mono 1, Unison 2, Chord 3 */
+#define RUN_MS(ms) for (f = 0; f < (ms) * 44100 / 1000; f += 128) e->render(s, buf, 128)
+        for (step = 0; step < 4; step++) {
+            int f;
+            e->get_param(s, "arp_btn_on", on, sizeof on);
+            e->set_param(s, "arp_btn", atoi(on) ? "0" : "1");   /* the tap: the host's switch flips */
+            if (!atoi(on)) {   /* a wobble inside the hold: the switch flips twice more */
+                RUN_MS(30); e->set_param(s, "arp_btn", "0"); RUN_MS(30); e->set_param(s, "arp_btn", "1");
+                RUN_MS(140); e->set_param(s, "arp_btn", "0");   /* the hold_ms report-back echo */
+            }
+            RUN_MS(300);
+            e->get_param(s, "arp_mode", v, sizeof v);
+            if (strcmp(v, want_arp[step])) { printf("button test: arp tap %d -> %s, want %s\n", step + 1, v, want_arp[step]); bad++; }
+        }
+        for (step = 0; step < 4; step++) {
+            int f;
+            e->set_param(s, "vm_select", "1");
+            RUN_MS(30); e->set_param(s, "vm_select", "0"); RUN_MS(30); e->set_param(s, "vm_select", "1");
+            RUN_MS(140); e->set_param(s, "vm_select", "0");
+            RUN_MS(300);
+            e->get_param(s, "vm_type", v, sizeof v);
+            if (strcmp(v, want_vm[step])) { printf("button test: vm tap %d -> %s, want %s\n", step + 1, v, want_vm[step]); bad++; }
+        }
+#undef RUN_MS
+        printf("button test: %s\n", bad ? "FAIL" : "ok (arp Off>On>Latch>Off, voice mode one step per tap)");
+        fails += bad;
+    }
     e->get_param(s, "oled1", t, sizeof t); printf("oled1: %s\n", t);
     e->get_param(s, "state", t, 8);
     e->destroy(s);

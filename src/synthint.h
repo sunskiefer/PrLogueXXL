@@ -31,6 +31,8 @@ typedef struct {
     uint32_t lastValueClock;
     int fav[8];
     int dirty;                             /* program edited since load */
+    uint32_t pressAt[P_COUNT];             /* clock of each button's last accepted press (button_press) */
+    uint8_t pressOn[P_COUNT];              /* ..and whether it arrived as 1 (the wrapper's hold echoes a 0 after it) */
 } panel_t;
 
 struct synth {

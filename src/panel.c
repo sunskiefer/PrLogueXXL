@@ -434,6 +434,23 @@ static void value_steps(synth_t *s, int d)
     s->rev_++;
 }
 
+/* Is this host write of a momentary button a tap? (device, Force, 2026-10-23)
+ * MPC's button is a Toggle Switch fired on touch-down, and a lit button (its "<key>_on" answer, panel_led) holds the
+ * host's switch at 1. So a tap on a lit button arrives as 0, not 1: ARP ON/LATCH could never be turned off, WRITE
+ * never wrote while the program was dirty, EDIT never left the menu. A 0 is a tap when the button is lit and no touch
+ * is still settling: a 1-tap is held at 1 by the wrapper for hold_ms (200 ms) and echoes as a 0 when it lets go, so
+ * a 0 within 400 ms of a 1-tap is that echo. Any write within 150 ms of the last tap is the same touch re-firing
+ * (a held or wobbling finger ran VOICE MODE SELECT through the modes), not a new tap. */
+static int button_press(synth_t *s, int p, int on)
+{
+    const uint32_t since = s->clock - s->ui.pressAt[p];
+    if (since < SEC(0.15)) return 0;
+    if (!on && (!panel_led(s, p) || (s->ui.pressOn[p] && since < SEC(0.4)))) return 0;
+    s->ui.pressAt[p] = s->clock;
+    s->ui.pressOn[p] = (uint8_t)on;
+    return 1;
+}
+
 /* ---------------------------------------------------------------- a parameter moved ---- */
 void panel_set(synth_t *s, int p, float v)
 {
@@ -535,7 +552,7 @@ void panel_set(synth_t *s, int p, float v)
     }
     /* buttons: act on the press */
     s->pv[p] = 0;
-    if (!on) return;
+    if (!button_press(s, p, on)) return;
     if (p >= P_PGM1 && p <= P_PGM8) { fav_or_page(s, p - P_PGM1); return; }
     switch (p) {
     case P_EDIT:
